@@ -1,0 +1,98 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red0\green0\blue0;\red64\green11\blue217;
+\red252\green33\blue24;\red231\green136\blue27;\red99\green186\blue28;}
+{\*\expandedcolortbl;;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c0\c0\c0;\cssrgb\c32309\c18668\c88228;
+\cssrgb\c100000\c23178\c11601;\cssrgb\c93038\c60431\c13279;\cssrgb\c45191\c76355\c14356;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf2 \cb3 \CocoaLigature0 Last login: Thu Aug  1 18:45:57 on ttys001\
+Philips-MacBook-Air-147:~ Phil$ ssh -i ~/.ssh/id_e16 e16@10.8.0.40\
+Linux e16dev-dev 4.14.95-hypriotos-v8 #1 SMP PREEMPT Thu Jan 31 15:56:11 UTC 2019 aarch64\
+\
+HypriotOS (Debian GNU/Linux 9)\
+\
+The programs included with the Debian GNU/Linux system are free software;\
+the exact distribution terms for each program are described in the\
+individual files in /usr/share/doc/*/copyright.\
+\
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent\
+permitted by applicable law.\
+Last login: Thu Aug  1 21:44:51 2019 from 10.8.0.50\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+
+\f1\b $ 
+\f0\b0 docker ps --all\
+CONTAINER ID        IMAGE                                 COMMAND                  CREATED             STATUS                   PORTS               NAMES\
+5b922bf5b328        cscix65g/swift-runtime:arm64-latest   "/lib/aarch64-linux-\'85"   2 hours ago         Exited (0) 2 hours ago                       swift_runtime\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+
+\f1\b $ 
+\f0\b0 ./run.sh\
+arm64-latest: Pulling from cscix65g/swift-runtime\
+Digest: sha256:4e71b57b0c17dade1b9b3206eff1cc25f1b45994ed160c30bac3eaf75cd928ad\
+Status: Image is up to date for cscix65g/swift-runtime:arm64-latest\
+Error response from daemon: No such container: e16server\
+latest: Pulling from cscix65g/e16server\
+3f45adcbed16: Pull complete \
+Digest: sha256:f79674355ca2a344f871a7b5883b8d91692e6d06f93cf2882098522a2f8e2083\
+Status: Downloaded newer image for 10.8.0.50:6000/cscix65g/e16server:latest\
+e65a78fbd0b6da352301095a38a6da511314c6b3100bc936953164388ed31041\
+CONTAINER ID        IMAGE                                      COMMAND                  CREATED             STATUS              PORTS               NAMES\
+e65a78fbd0b6        10.8.0.50:6000/cscix65g/e16server:latest   "/lib/ld-linux-aarch\'85"   6 seconds ago       Up 3 seconds                            e16server\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+
+\f1\b $ 
+\f0\b0 docker images\
+REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE\
+10.8.0.50:6000/cscix65g/e16server   latest              f2a58d693111        16 minutes ago      24.7MB\
+cscix65g/swift-runtime              arm64-latest        f00ad9f88a50        3 months ago        212MB\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+
+\f1\b $ 
+\f0\b0 docker ps --all\
+CONTAINER ID        IMAGE                                      COMMAND                  CREATED             STATUS                   PORTS               NAMES\
+e65a78fbd0b6        10.8.0.50:6000/cscix65g/e16server:latest   "/lib/ld-linux-aarch\'85"   36 seconds ago      Up 33 seconds                                e16server\
+5b922bf5b328        cscix65g/swift-runtime:arm64-latest        "/lib/aarch64-linux-\'85"   2 hours ago         Exited (0) 2 hours ago                       swift_runtime\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+$ ./watchtower.sh\
+Unable to find image 'v2tec/watchtower:armhf-latest' locally\
+armhf-latest: Pulling from v2tec/watchtower\
+a5415f98d52c: Pull complete \
+c3f7208ad77c: Pull complete \
+66d662b1bb9f: Pull complete \
+Digest: sha256:63abf3fc71a46b8fc46674342766d976e6a97d6c70d2560a0986ec63c1784812\
+Status: Downloaded newer image for v2tec/watchtower:armhf-latest\
+19d907d49dbef42303c46416067220f4cb8bb34925276e79bf0ff7bec77fb999\
+
+\f1\b \cf4 HypriotOS/arm64: \cf5 e16\cf2 @\cf6 e16dev-dev\cf2  in \cf7 ~
+\f0\b0 \cf2 \
+
+\f1\b $ 
+\f0\b0 docker logs -tf watchtower\
+2019-08-02T01:49:47.498754003Z time="2019-08-02T01:49:47Z" level=info msg="First run: 2019-08-02 01:50:17 +0000 UTC" \
+2019-08-02T01:50:37.404968019Z time="2019-08-02T01:50:37Z" level=info msg="Found new 10.8.0.50:6000/cscix65g/e16server:latest image (sha256:fba6e8af8969c32bd14b9b183adf39de56267158686d49881ede0edaf96003d4)" \
+2019-08-02T01:50:37.405246870Z time="2019-08-02T01:50:37Z" level=info msg="Stopping /e16server (e65a78fbd0b6da352301095a38a6da511314c6b3100bc936953164388ed31041) with SIGTERM" \
+2019-08-02T01:50:49.884924911Z time="2019-08-02T01:50:49Z" level=info msg="Creating /e16server" \
+2019-08-02T01:50:50.707444605Z time="2019-08-02T01:50:50Z" level=info msg="Removing image sha256:f2a58d6931112dca3dae684eef9bd1cf3b0af7be6af08f4624b08d5118d51e9c" \
+2019-08-02T01:54:34.100706376Z time="2019-08-02T01:54:34Z" level=info msg="Found new 10.8.0.50:6000/cscix65g/e16server:latest image (sha256:f2a58d6931112dca3dae684eef9bd1cf3b0af7be6af08f4624b08d5118d51e9c)" \
+2019-08-02T01:54:36.901119057Z time="2019-08-02T01:54:36Z" level=info msg="Stopping /e16server (957fbd8657d3a23a8278d75812800173fd68d5f7770cf874b7ff4ec8e891e9a1) with SIGTERM" \
+2019-08-02T01:54:49.276913707Z time="2019-08-02T01:54:49Z" level=info msg="Creating /e16server" \
+2019-08-02T01:54:50.073595183Z time="2019-08-02T01:54:50Z" level=info msg="Removing image sha256:fba6e8af8969c32bd14b9b183adf39de56267158686d49881ede0edaf96003d4" \
+2019-08-02T01:56:03.434220395Z time="2019-08-02T01:56:03Z" level=info msg="Found new 10.8.0.50:6000/cscix65g/e16server:latest image (sha256:fba6e8af8969c32bd14b9b183adf39de56267158686d49881ede0edaf96003d4)" \
+2019-08-02T01:56:06.086111923Z time="2019-08-02T01:56:06Z" level=info msg="Stopping /e16server (06b1096279009b18321d5b004f843d5873286029a0aa0d9f62e4a46af209e009) with SIGTERM" \
+2019-08-02T01:56:18.329985050Z time="2019-08-02T01:56:18Z" level=info msg="Creating /e16server" \
+2019-08-02T01:56:19.127262003Z time="2019-08-02T01:56:19Z" level=info msg="Removing image sha256:f2a58d6931112dca3dae684eef9bd1cf3b0af7be6af08f4624b08d5118d51e9c" \
+\
+}

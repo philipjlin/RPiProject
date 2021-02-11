@@ -1,0 +1,49 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+Process: \
+\
+Clone repository on RPI\
+	git clone in startup directory\
+Edit run.sh file in vi\
+\
+\
+Make sure registries are up\
+1. Swift runtime container \
+	docker run --restart unless-stopped --detach --name swift-runtime cscix65g/swift-runtime:arm64-latest\
+\
+2. Docker registry on mac: on mac start registry - this sets up the mac registry where the docker image will go\
+	docker rm registry\
+	docker run --name registry -p 6000:5000 -d registry:2\
+\
+3. Run build file - this builds the swift project, builds the docker image, and pushes the docker image to the mac registry\
+	cd S16Summer19Assignments/FinalProject\
+	./build.sh\
+\
+4. ssh into Rpi\
+	ssh -i ~/.ssh/id_e16 e16@10.8.0.40\
+\
+5. Enable hciuart\
+	sudo systemctl start hciuart.service\
+\
+6. Run run file on Rpi - this pulls the swift runtime from the cross compiler, launches the runtime, stops current instance of e16 server, pulls the latest e16 server from the mac docker registry, runs the e16 server\
+	./run.sh\
+\
+	Make sure e16server is up on Rpi - docker stop/docker rm/docker ps --all to check\
+	\
+7. Enable logging in RPI\
+	docker logs -f e16server\
+	docker logs -tf watchtower\
+\
+8. Test on Mac\
+	./testLED.sh\
+	./testAnalog.sh\
+	./testBLE.sh\
+\
+\
+}
